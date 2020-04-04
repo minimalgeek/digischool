@@ -1,10 +1,12 @@
 import React from "react";
-import School from "../school/School";
+import {School} from "../school/School";
+import WhiteBoard from "./WhiteBoard"
 
-export default class SchoolWrapper {
+export default class SchoolWrapper extends React.Component {
     constructor(props) {
+        super(props);
         this.state = {
-            isWhiteBoardOpen: false,
+            isWhiteBoardOpen: true,
             userName: 'Jozsef'
         }
     }
@@ -20,10 +22,10 @@ export default class SchoolWrapper {
     // Username will be extracted from user object.
     render() {
         const {isWhiteBoardOpen, userName} = this.state;
-        return ({
+        return (
             isWhiteBoardOpen ?
-                <WhiteBoard toggleWhiteBoard={this.toggleWhiteBoard} userName={userName/> :
-                <School toggleWhiteBoard={this.toggleWhiteBoard}/>
-            });
+        (<WhiteBoard toggleWhiteBoard={this.toggleWhiteBoard} userName={userName} /> ):
+                (<School toggleWhiteBoard={this.toggleWhiteBoard}/>)
+            );
     }
 }

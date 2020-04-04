@@ -5,7 +5,7 @@ import UserList from "./UserList";
 
 // In development you have to point the react front end explicitly to your express server which will be running on a different port than the React Dev Server
 
-const socket = socketIOClient("http://localhost:3001"); //development;
+const socket = socketIOClient("http://localhost:3002"); //development;
 
 // In production, the express server will be the one to serve the react application so we can leave out the connection string argument, which will allow the socket to default to it origin (theoretically your express server)
 
@@ -23,27 +23,22 @@ export default class WhiteBoard extends Component {
       cleared: false,
       username: null,
       room: null,
-      userList: []
+      userList: [],
     };
 
     this.whiteboard = React.createRef();
 
-    socket.emit("join", {
-      username: this.props.username,
-      room: this.props.room
-    });
-
-    socket.on("joined", joined => {
+    socket.on("joined", (joined) => {
       this.setState({
         id: joined.id,
         username: joined.username,
-        room: joined.room
+        room: joined.room,
       });
     });
 
-    socket.on("users", users => {
+    socket.on("users", (users) => {
       this.setState({
-        userList: users
+        userList: users,
       });
     });
 
@@ -53,7 +48,7 @@ export default class WhiteBoard extends Component {
         .clearRect(0, 0, window.innerWidth, window.innerHeight);
     });
 
-    socket.on("drawing", data => {
+    socket.on("drawing", (data) => {
       let w = window.innerWidth;
       let h = window.innerHeight;
 
@@ -70,6 +65,11 @@ export default class WhiteBoard extends Component {
   }
 
   componentDidMount() {
+    socket.emit("join", {
+      username: this.props.username,
+      room: this.props.room,
+    });
+
     this.setState({
       whiteboard: this.whiteboard.current,
       username: this.props.username,
@@ -134,37 +134,37 @@ export default class WhiteBoard extends Component {
           y1: y1 / h,
           color: color,
           room: this.state.room,
-          force: force
+          force: force,
         });
 
         return {
-          cleared: false
+          cleared: false,
         };
       }
     });
   };
 
-  onMouseDown = e => {
+  onMouseDown = (e) => {
     this.setState(() => {
       return {
         currentX: e.clientX,
         currentY: e.clientY,
-        drawing: true
+        drawing: true,
       };
     });
   };
 
-  onMouseUp = e => {
+  onMouseUp = (e) => {
     this.setState(() => {
       return {
         drawing: false,
         currentX: e.clientX,
-        currentY: e.clientY
+        currentY: e.clientY,
       };
     });
   };
 
-  onMouseMove = e => {
+  onMouseMove = (e) => {
     if (!this.state.drawing) {
       return;
     }
@@ -172,12 +172,12 @@ export default class WhiteBoard extends Component {
     this.setState(() => {
       return {
         currentX: e.clientX,
-        currentY: e.clientY
+        currentY: e.clientY,
       };
     }, this.drawLine(this.state.currentX, this.state.currentY, e.clientX, e.clientY, this.state.currentColor, true));
   };
 
-  onTouchMove = e => {
+  onTouchMove = (e) => {
     if (!this.state.drawing) {
       return;
     }
@@ -194,7 +194,7 @@ export default class WhiteBoard extends Component {
       );
       return {
         currentX: e.touches[0].clientX,
-        currentY: e.touches[0].clientY
+        currentY: e.touches[0].clientY,
       };
     });
   };
@@ -202,13 +202,13 @@ export default class WhiteBoard extends Component {
   onResize = () => {
     this.setState({
       windowWidth: window.innerWidth,
-      windowHeight: window.innerHeight
+      windowHeight: window.innerHeight,
     });
   };
 
   throttle = (callback, delay) => {
     let previousCall = new Date().getTime();
-    return function() {
+    return function () {
       let time = new Date().getTime();
 
       if (time - previousCall >= delay) {
@@ -218,16 +218,16 @@ export default class WhiteBoard extends Component {
     };
   };
 
-  selectColor = color => {
+  selectColor = (color) => {
     this.setState(() => {
       socket.emit("color-change", {
         id: this.state.id,
         username: this.state.username,
         room: this.state.room,
-        color: color.hex
+        color: color.hex,
       });
       return {
-        currentColor: color.hex
+        currentColor: color.hex,
       };
     });
   };

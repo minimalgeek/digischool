@@ -7,11 +7,13 @@ const { chatToken, videoToken, voiceToken } = require("./tokens");
 
 const app = express();
 
-const server = require("http").createServer(app)
-const io = require("socket.io")(server)
-const whiteboard = require("./whiteboard").default(io);
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:3001","http://localhost:3002"],
+    credentials: true
+  })
+);
 
-app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(pino);
