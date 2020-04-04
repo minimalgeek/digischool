@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: "Press Start 2P", cursive;
   color: #333e5a;
   min-height: 100%;
 }
@@ -19,7 +19,6 @@ header {
   color: #fff;
   text-align: center;
   flex-grow: 0;
-  margin-bottom: 2em;
 }
 
 h1 {
