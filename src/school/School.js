@@ -9,6 +9,9 @@ export const config = {
   type: Phaser.AUTO,
   scene: [LoadingScene, MainScene],
   pixelArt: true,
+  render: {
+    pixelArt: true,
+  },
   parent: "phaser-container",
   physics: {
     default: "arcade",
@@ -18,7 +21,7 @@ export const config = {
   },
 };
 
-const game = new Phaser.Game(config);
+new Phaser.Game(config);
 
 export const School = () => {
   return <div className="phaserContainer" id="phaser-container"></div>;
