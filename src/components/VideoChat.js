@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Lobby from "./Lobby";
 import Room from "./Room";
 
 const VideoChat = () => {
-  const [username, setUsername] = useState("");
-  const [roomName, setRoomName] = useState("");
+  const [username, setUsername] = useState(localStorage.getItem("name")||"Peter");
+  const [roomName, setRoomName] = useState("ProgBasics");
   const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const inter = setInterval(() => {
+      let valll = localStorage.getItem("roomba");
+      if (valll) {
+        handleSubmit();
+      }
+    }, 500);
+
+    return () => {
+      clearInterval(inter);
+    }
+  }, []);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -15,8 +28,8 @@ const VideoChat = () => {
     setRoomName(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async () => {
+    // event.preventDefault()  ??? Nem tudjuk kell-e
     const data = await fetch("/video/token", {
       method: "POST",
       body: JSON.stringify({
@@ -33,21 +46,12 @@ const VideoChat = () => {
 
   const handleLogout = (event) => {
     setToken(null);
+    localStorage.setItem("roomba", "");
   };
-  let render;
+  let render="";
   if (token) {
     render = (
       <Room roomName={roomName} token={token} handleLogout={handleLogout} />
-    );
-  } else {
-    render = (
-      <Lobby
-        username={username}
-        roomName={roomName}
-        handleUsernameChange={handleUsernameChange}
-        handleRoomNameChange={handleRoomNameChange}
-        handleSubmit={handleSubmit}
-      />
     );
   }
   return render;
