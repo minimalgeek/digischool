@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import Phaser from "phaser";
-import { IonPhaser } from "@ion-phaser/react";
 import MainScene from "./MainScene";
+import LoadingScene from "./LoadingScene";
+
+export const config = {
+  width: 256,
+  height: 272,
+  type: Phaser.AUTO,
+  scene: [LoadingScene, MainScene],
+  pixelArt: true,
+  parent: "phaser-container",
+};
+
+const game = new Phaser.Game(config);
 
 export const School = () => {
-  const [initialize, setInitialize] = useState(true);
-
-  const [game, setGame] = useState({
-    width: 256,
-    height: 272,
-    type: Phaser.AUTO,
-    scene: MainScene,
-    pixelArt: true,
-  });
-  return <IonPhaser game={game} initialize={initialize} />;
+  return <div className="phaserContainer" id="phaser-container"></div>;
 };
