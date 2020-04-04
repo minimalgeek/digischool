@@ -99,10 +99,11 @@ class MainScene extends Phaser.Scene {
             0
         );
 
-        //to add collision
-       // this.physics.add.collider(this.anna,walls1);
-
         this.anna = new CharacterSprite(this, 400, 400, "anna", 26);
+        new CharacterSprite(this, 200, 200, "demon", 26);
+        new CharacterSprite(this, 100, 100, "aaron", 26);
+        new CharacterSprite(this, 500, 500, "mort", 26);
+
         window.anna = this.anna;
         this.anna.setSize(40, 50).setOffset(10, 10);
         this.anna.setCollideWorldBounds(true);
