@@ -5,6 +5,8 @@ import { BrowserRouter, Route } from "react-router-dom";
 import SchoolWrapper from "./components/SchoolWrapper";
 
 const App = () => {
+  localStorage.setItem("roomba", false);
+  localStorage.setItem("openwhiteboard", false);
   return (
     <div className="app">
       <header>

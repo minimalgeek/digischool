@@ -12,6 +12,7 @@ export const config = {
   render: {
     pixelArt: true,
   },
+  
   parent: "phaser-container",
   physics: {
     default: "arcade",
