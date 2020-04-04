@@ -11,10 +11,12 @@ const App = () => {
         <h1>My Digital School</h1>
       </header>
       <main>
-        <BrowserRouter>
+        <VideoChat />
+        <School />
+        {/* <BrowserRouter>
           <Route component={School} to="/" />
           <Route component={VideoChat} to="/video" />
-        </BrowserRouter>
+        </BrowserRouter> */}
       </main>
       <footer>
         <p>

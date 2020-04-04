@@ -4,8 +4,8 @@ import MainScene from "./MainScene";
 import LoadingScene from "./LoadingScene";
 
 export const config = {
-  width: 256,
-  height: 272,
+  width: "75%",
+  height: "100%",
   type: Phaser.AUTO,
   scene: [LoadingScene, MainScene],
   pixelArt: true,
