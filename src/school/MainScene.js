@@ -49,19 +49,39 @@ class MainScene extends Phaser.Scene {
       0,
       0
     );
-    let chairsBack = digiSchoolMap.createStaticLayer(
-      "Furnitures/chairs-back",
-      [doors, school, stardew_valley],
-      0,
-      0
-    );
+
     let tables = digiSchoolMap.createStaticLayer(
       "Furnitures/tables",
       [doors, school, stardew_valley],
       0,
       0
     );
+
+    let chairsBack = digiSchoolMap.createStaticLayer(
+      "Furnitures/chairs-back",
+      [doors, school, stardew_valley],
+      0,
+      0
+    );
+
+    // tables.forEachTile((tile) => {
+    //   console.log(tile);
+    // });
+
+    this.clicks = 0;
+
+    this.input.on("pointerdown", (pointer, obj) => {
+      // first click: go to room and connect video
+      // second click: open whiteboard
+      if (this.clicks === 0){
+        console.log("First click happened");
+      } else if(this.clicks === 1) {
+        console.log("Second click happened");
+      }
+      this.clicks++;
+      
     
+    });
   }
 
   update() {}
