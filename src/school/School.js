@@ -10,6 +10,12 @@ export const config = {
   scene: [LoadingScene, MainScene],
   pixelArt: true,
   parent: "phaser-container",
+  physics: {
+    default: "arcade",
+    arcade: {
+      debug: false,
+    },
+  },
 };
 
 const game = new Phaser.Game(config);
