@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="50" height="41" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="1">
- <tileset firstgid="1" source="PC Computer - Stardew Valley - Town Interior.tsx"/>
+ <tileset firstgid="1" source="sw.tsx"/>
  <tileset firstgid="2177" source="School1.tsx"/>
  <tileset firstgid="4481" source="lpc-doors-animated-1.tsx"/>
  <layer id="1" name="floor" width="50" height="41">

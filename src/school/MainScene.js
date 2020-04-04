@@ -7,7 +7,6 @@ class MainScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.text(20, 20, "Ide jon Bohi gyonyoru alkotasa");
   }
 
   update() {}

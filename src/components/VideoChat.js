@@ -17,7 +17,7 @@ const VideoChat = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = await fetch("http://localhost:3001/video/token", {
+    const data = await fetch("/video/token", {
       method: "POST",
       body: JSON.stringify({
         identity: username,

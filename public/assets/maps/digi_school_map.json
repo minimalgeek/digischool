@@ -135,7 +135,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/..\/..\/..\/utils\/fist_map\/PC Computer - Stardew Valley - Town Interior.tsx"
+         "source":"..\/..\/..\/..\/utils\/fist_map\/sw.tsx"
         }, 
         {
          "firstgid":2177,
