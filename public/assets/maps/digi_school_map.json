@@ -63,6 +63,12 @@
                  "id":5,
                  "name":"walls3",
                  "opacity":1,
+                 "properties":[
+                        {
+                         "name":"whiteboard",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "type":"tilelayer",
                  "visible":true,
                  "width":50,
@@ -101,6 +107,12 @@
                  "id":9,
                  "name":"chairs",
                  "opacity":1,
+                 "properties":[
+                        {
+                         "name":"chair",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "type":"tilelayer",
                  "visible":true,
                  "width":50,
@@ -129,6 +141,12 @@
                  "id":10,
                  "name":"chairs-back",
                  "opacity":1,
+                 "properties":[
+                        {
+                         "name":"chair",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "type":"tilelayer",
                  "visible":true,
                  "width":50,
