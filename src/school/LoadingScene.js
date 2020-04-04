@@ -9,6 +9,7 @@ class LoadingScene extends Phaser.Scene {
     this.load.image("doors", "assets/maps/lpc-doors-animated-1.png");
     this.load.image("School1", "assets/maps/School1.png");
     this.load.image("sw", "assets/maps/sw.png");
+    this.load.spritesheet("anna", "./assets/sprite/anna.png", {frameHeight: 64, frameWidth: 64});
 
     this.load.tilemapTiledJSON(
       "digi_school_map",
