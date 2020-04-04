@@ -4,9 +4,13 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const pino = require("express-pino-logger")();
 const { chatToken, videoToken, voiceToken } = require("./tokens");
-const whiteboard = require("./whiteboard");
 
 const app = express();
+
+const server = require("http").createServer(app)
+const io = require("socket.io")(server)
+const whiteboard = require("./whiteboard").default(io);
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
