@@ -27,14 +27,6 @@ class LoadingScene extends Phaser.Scene {
     //   frameWidth: 16,
     //   frameHeight: 16,
     // });
-    this.load.image("doors", "assets/maps/lpc-doors-animated-1.png");
-    this.load.image("stardew_valley", "assets/maps/sw.png");
-    this.load.image("school", "assets/maps/School1.png");
-
-    this.load.tilemapTiledJSON(
-      "digi_school_map",
-      "assets/maps/digi_school_map.json"
-    );
 
     // this.load.atlas(
     //   "characters",
@@ -96,28 +88,7 @@ class LoadingScene extends Phaser.Scene {
     });
     */
 
-    let digi_school_map = this.add.tilemap("digi_school_map");
-
-    let assets = digi_school_map.addTilesetImage(
-      "stardew_valley",
-      "school",
-      "doors"
-    );
-
-    let chairsBack = digi_school_map.createStaticLayer(
-      "chairs-back",
-      [assets],
-      0,
-      0
-    );
-    let tables = digi_school_map.createStaticLayer("tables", [assets], 0, 0);
-    let chairs = digi_school_map.createStaticLayer("chairs", [assets], 0, 0);
-    let carpet = digi_school_map.createStaticLayer("carpet", [assets], 0, 0);
-    let walls_3 = digi_school_map.createStaticLayer("walls 3", [assets], 0, 0);
-    let walls_2 = digi_school_map.createStaticLayer("walls 2", [assets], 0, 0);
-    let walls = digi_school_map.createStaticLayer("walls", [assets], 0, 0);
-    let floor = digi_school_map.createStaticLayer("floor", [assets], 0, 0);
-
+    
     this.scene.start("MainScene");
   }
 }
