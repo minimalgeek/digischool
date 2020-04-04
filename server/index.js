@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const pino = require("express-pino-logger")();
 const { chatToken, videoToken, voiceToken } = require("./tokens");
+const whiteboard = require("./whiteboard");
 
 const app = express();
 app.use(cors());
