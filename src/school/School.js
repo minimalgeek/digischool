@@ -28,7 +28,11 @@ export const config = {
 export class School extends React.Component {
   constructor(props) {
     super(props);
-    new Phaser.Game(config);
+  }
+
+  componentDidMount() {
+    const game = new Phaser.Game(config);
+    console.log(game);
   }
 
   render() {
