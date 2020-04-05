@@ -25,6 +25,7 @@ export default class WhiteBoard extends Component {
       room: null,
       userList: [],
       headerAndFooterHeight: 160,
+      videoChatWidth: 451,
     };
 
     this.whiteboard = React.createRef();
@@ -152,6 +153,12 @@ export default class WhiteBoard extends Component {
     });
   };
 
+  calculateXPosition = (clientX) => {
+    const differX = window.innerHeight - this.getCanvasHeight() - this.state.videoChatWidth;
+    const calculatedX = clientX + differX;
+    return calculatedX;
+  }
+
   calculateYPosition = (clientY) => {
     const differY = window.innerHeight - this.getCanvasHeight() - this.state.headerAndFooterHeight;
     const calculatedY = clientY + differY;
@@ -161,7 +168,7 @@ export default class WhiteBoard extends Component {
   onMouseDown = (e) => {
     this.setState(() => {
       return {
-        currentX: e.clientX,
+        currentX: this.calculateXPosition(e.clientX),
         currentY: this.calculateYPosition(e.clientY),
         drawing: true,
       };
@@ -172,7 +179,7 @@ export default class WhiteBoard extends Component {
     this.setState(() => {
       return {
         drawing: false,
-        currentX: e.clientX,
+        currentX: this.calculateXPosition(e.clientX),
         currentY: this.calculateYPosition(e.clientY),
       };
     });
@@ -185,7 +192,7 @@ export default class WhiteBoard extends Component {
     const calculatedYPosition = this.calculateYPosition(e.clientY);
     this.setState(() => {
       return {
-        currentX: e.clientX,
+        currentX: this.calculateXPosition(e.clientX),
         currentY: this.calculateYPosition(e.clientY),
       };
     }, this.drawLine(this.state.currentX, this.state.currentY, e.clientX, calculatedYPosition, this.state.currentColor, true));
@@ -264,7 +271,7 @@ export default class WhiteBoard extends Component {
     return (
       <div id="whiteboard">
         <canvas
-          width={`${this.state.windowWidth}px`}
+          width={`${this.state.windowWidth - 151}px`}
           height={`${this.state.windowHeight - 135}px`}
           ref={this.whiteboard}
           className="whiteboard"
