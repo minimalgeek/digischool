@@ -105,15 +105,6 @@ export default class WhiteBoard extends Component {
     );
 
     this.whiteboard.current.addEventListener("touchend", this.onMouseUp, false);
-
-    var observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutationRecord) {
-        console.log('style changed!');
-      });
-    });
-
-    var target = document.getElementById('whiteboard');
-    observer.observe(target, { attributes : true, attributeFilter : ['style'] });
   }
 
   drawLine = (x0, y0, x1, y1, color, emit, force) => {
@@ -190,12 +181,13 @@ export default class WhiteBoard extends Component {
       return;
     }
     const calculatedYPosition = this.calculateYPosition(e.clientY);
+    const calculatedXPosition = this.calculateXPosition(e.clientX);
     this.setState(() => {
       return {
         currentX: this.calculateXPosition(e.clientX),
         currentY: this.calculateYPosition(e.clientY),
       };
-    }, this.drawLine(this.state.currentX, this.state.currentY, e.clientX, calculatedYPosition, this.state.currentColor, true));
+    }, this.drawLine(this.state.currentX, this.state.currentY, calculatedXPosition, calculatedYPosition, this.state.currentColor, true));
   };
 
   onTouchMove = (e) => {
@@ -277,6 +269,7 @@ export default class WhiteBoard extends Component {
           className="whiteboard"
         />
         <button onClick={this.clearBoard()}>Clear Board</button>
+        <button onClick={this.props.toggleWhiteBoard} >Exit</button>
       </div>
     );
   }

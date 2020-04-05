@@ -27,7 +27,7 @@ export default class SchoolWrapper extends React.Component {
     const { isWhiteBoardOpen } = this.state;
     this.setState({
       isWhiteBoardOpen: isWhiteBoardOpen ? false : true,
-    });
+    }, () => {console.log(`WhitBoard should be open: ${this.state.isWhiteBoardOpen}`)});
   };
 
   // Username will be extracted from user object.
