@@ -252,6 +252,7 @@ export default class WhiteBoard extends Component {
 
   leave = () => {
     socket.emit("leaveroom", { id: this.state.id, room: this.state.room });
+    console.log(this.props);
     this.props.toggleWhiteBoard();
   };
 
@@ -267,6 +268,10 @@ export default class WhiteBoard extends Component {
     return parseInt(cs.getPropertyValue("height"), 10);
   }
 
+  componentWillUnmount() {
+    socket.disconnect();
+  }
+
   render() {
     return (
       <div id="whiteboard">
@@ -278,6 +283,7 @@ export default class WhiteBoard extends Component {
           style={{background: "url('https://images.squarespace-cdn.com/content/5b1ec58225bf0214c000f55f/1554766470261-8W5MK6RGG1E8KIYVV5GY/schoolboard.png?format=1500w&content-type=image%2Fpng')", backgroundSize: "auto"}}
         />
         <button onClick={this.clearBoard}>Clear Board</button>
+        <button onClick={this.leave}>Exit</button>
       </div>
     );
   }
