@@ -100,9 +100,28 @@ class MainScene extends Phaser.Scene {
     );
 
     this.anna = new CharacterSprite(this, 400, 400, "anna", 26);
+    //room 1
     new CharacterSprite(this, 200, 200, "demon", 26);
     new CharacterSprite(this, 100, 100, "aaron", 26);
-    new CharacterSprite(this, 500, 500, "mort", 26);
+    //room2
+    new CharacterSprite(this, 340, 200, "aaron", 26);
+    new CharacterSprite(this, 400, 120, "anna", 26);
+    //room3
+    new CharacterSprite(this, 650, 120, "demon", 26);
+    new CharacterSprite(this, 700, 100, "aaron", 26);
+    new CharacterSprite(this, 650, 200, "mort", 26);
+    //room4
+    new CharacterSprite(this, 105, 560, "tard", 26);
+    new CharacterSprite(this, 200, 560, "doux", 26);
+    new CharacterSprite(this, 295, 560, "mort", 26);
+    new CharacterSprite(this, 105, 510, "aaron", 26);
+    //couch
+    new CharacterSprite(this, 520, 550, "mort", 26);
+    new CharacterSprite(this, 520, 530, "tard", 26);
+    let vita = new CharacterSprite(this, 650, 530, "vita", 26);
+    let doux = new CharacterSprite(this, 650, 550, "doux", 26);
+    vita.flipX = true;
+    doux.flipX = true;
 
     window.anna = this.anna;
     this.anna.setSize(40, 50).setOffset(10, 10);
