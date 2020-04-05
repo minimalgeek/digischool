@@ -8,6 +8,7 @@ class MainScene extends Phaser.Scene {
   }
 
   preload() {
+    // this.cameras.main.setZoom(1.2).setPosition(0, 0);
     this.anims.create({
       key: "left",
       frameRate: 10,
