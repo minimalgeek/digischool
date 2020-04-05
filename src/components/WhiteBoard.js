@@ -45,12 +45,12 @@ export default class WhiteBoard extends Component {
     socket.on("cleared", () => {
       this.state.whiteboard
         .getContext("2d")
-        .clearRect(0, 0, window.innerWidth, window.innerHeight);
+        .clearRect(0, 0, this.getCanvasWidth(), this.getCanvasHeight());
     });
 
     socket.on("drawing", (data) => {
-      let w = window.innerWidth;
-      let h = window.innerHeight;
+      let w = this.getCanvasWidth()();
+      let h = this.getCanvasHeight()();
 
       if (!isNaN(data.x0 / w) && !isNaN(data.y0)) {
         this.drawLine(
@@ -74,8 +74,8 @@ export default class WhiteBoard extends Component {
       whiteboard: this.whiteboard.current,
       username: this.props.username,
     });
-    this.whiteboard.current.style.height = window.innerHeight;
-    this.whiteboard.current.style.width = window.innerWidth;
+    this.whiteboard.current.style.height = this.getCanvasHeight();
+    this.whiteboard.current.style.width = this.getCanvasWidth();
 
     this.whiteboard.current.addEventListener(
       "mousedown",
@@ -104,7 +104,7 @@ export default class WhiteBoard extends Component {
 
     this.whiteboard.current.addEventListener("touchend", this.onMouseUp, false);
 
-    window.addEventListener("resize", this.onResize);
+    document.querySelector('#whiteboard').addEventListener('resize', this.onResize);
   }
 
   drawLine = (x0, y0, x1, y1, color, emit, force) => {
@@ -123,8 +123,8 @@ export default class WhiteBoard extends Component {
     if (!emit) {
       return;
     }
-    var w = window.innerWidth;
-    var h = window.innerHeight;
+    var w = this.getCanvasWidth();
+    var h = this.getCanvasHeight();
     this.setState(() => {
       if (!isNaN(x0 / w)) {
         socket.emit("drawing", {
@@ -145,21 +145,23 @@ export default class WhiteBoard extends Component {
   };
 
   onMouseDown = (e) => {
+    const differY = window.innerHeight - this.getCanvasHeight();
     this.setState(() => {
       return {
         currentX: e.clientX,
-        currentY: e.clientY,
+        currentY: e.clientY+differY,
         drawing: true,
       };
     });
   };
 
   onMouseUp = (e) => {
+    const differY = window.innerHeight - this.getCanvasHeight();
     this.setState(() => {
       return {
         drawing: false,
         currentX: e.clientX,
-        currentY: e.clientY,
+        currentY: e.clientY+differY,
       };
     });
   };
@@ -168,13 +170,13 @@ export default class WhiteBoard extends Component {
     if (!this.state.drawing) {
       return;
     }
-
+    const differY = window.innerHeight - this.getCanvasHeight();
     this.setState(() => {
       return {
         currentX: e.clientX,
-        currentY: e.clientY,
+        currentY: e.clientY+differY,
       };
-    }, this.drawLine(this.state.currentX, this.state.currentY, e.clientX, e.clientY, this.state.currentColor, true));
+    }, this.drawLine(this.state.currentX, this.state.currentY, e.clientX, e.clientY+differY, this.state.currentColor, true));
   };
 
   onTouchMove = (e) => {
@@ -201,8 +203,8 @@ export default class WhiteBoard extends Component {
 
   onResize = () => {
     this.setState({
-      windowWidth: window.innerWidth,
-      windowHeight: window.innerHeight,
+      windowWidth: this.getCanvasWidth(),
+      windowHeight: this.getCanvasHeight(),
     });
   };
 
@@ -241,24 +243,26 @@ export default class WhiteBoard extends Component {
     this.props.toggleWhiteBoard();
   };
 
+  getCanvasWidth(){
+    let board = document.getElementById("whiteboard");
+    let cs = window.getComputedStyle(board);
+    return parseInt(cs.getPropertyValue("width"), 10);
+  }
+  
+  getCanvasHeight(){
+    let board = document.getElementById("whiteboard");
+    let cs = window.getComputedStyle(board);
+    return parseInt(cs.getPropertyValue("height"), 10);
+  }
+
   render() {
     return (
-      <div>
-        <h1 className="room-name">{this.state.room}</h1>
+      <div id="whiteboard">
         <canvas
-          height={`${this.state.windowHeight}px`}
-          width={`${this.state.windowWidth}px`}
+          height="768px"
+          width="1024px"
           ref={this.whiteboard}
           className="whiteboard"
-        />
-        <UserList userList={this.state.userList} />
-
-        <ColorSelector
-          clearBoard={this.clearBoard}
-          currentColor={this.state.currentColor}
-          selectColor={this.selectColor}
-          leaveRoom={this.props.clearRoom}
-          leave={this.leave}
         />
       </div>
     );
