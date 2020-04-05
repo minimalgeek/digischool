@@ -25,7 +25,7 @@ export default class WhiteBoard extends Component {
       room: null,
       userList: [],
       headerAndFooterHeight: 160,
-      videoChatWidth: 451,
+      videoChatWidth: 240,
     };
 
     this.whiteboard = React.createRef();
@@ -67,6 +67,7 @@ export default class WhiteBoard extends Component {
   }
 
   componentDidMount() {
+    const userName = localStorage.getItem('name');
     socket.emit("join", {
       username: this.props.username,
       room: this.props.room,
@@ -74,7 +75,7 @@ export default class WhiteBoard extends Component {
 
     this.setState({
       whiteboard: this.whiteboard.current,
-      username: this.props.username,
+      userName,
     });
     this.whiteboard.current.style.height = this.getCanvasHeight();
     this.whiteboard.current.style.width = this.getCanvasWidth();
@@ -267,6 +268,7 @@ export default class WhiteBoard extends Component {
           height={`${this.state.windowHeight - 135}px`}
           ref={this.whiteboard}
           className="whiteboard"
+          style={{background: "url('https://images.squarespace-cdn.com/content/5b1ec58225bf0214c000f55f/1554766470261-8W5MK6RGG1E8KIYVV5GY/schoolboard.png?format=1500w&content-type=image%2Fpng')", backgroundSize: "auto"}}
         />
         <button onClick={this.clearBoard()}>Clear Board</button>
         <button onClick={this.props.toggleWhiteBoard} >Exit</button>
