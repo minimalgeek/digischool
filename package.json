@@ -5,11 +5,15 @@
   "dependencies": {
     "axios": "^0.19.2",
     "cors": "^2.8.5",
+    "node-sass": "^4.13.1",
     "phaser": "^3.22.0",
     "react": "^16.9.0",
+    "react-color": "^2.14.1",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.0",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1",
     "styled-components": "^5.0.1",
     "twilio-video": "^2.3.0"
   },
