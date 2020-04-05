@@ -135,6 +135,25 @@ class MainScene extends Phaser.Scene {
         this.anna.setCollideWorldBounds(true);
         this.keyboard = this.input.keyboard.addKeys("W, A, S, D");
 
+        this.registerClicks();
+    }
+
+    registerClicks() {
+        this.clicks = 0;
+
+        this.input.on("pointerdown", (pointer, obj) => {
+            // first click: go to room and connect video
+            // second click: open whiteboard
+            if (this.clicks === 0) {
+                localStorage.setItem("roomba", true);
+                console.log("Room csatlakozas");
+            } else if (this.clicks === 1) {
+                // openWhiteboard
+                localStorage.setItem("openwhiteboard", true); // tudom, sirni kene
+                console.log("Open whiteboard");
+            }
+            this.clicks++;
+        });
     }
 
     update(time, delta) { //delta 16.666 @ 60fps

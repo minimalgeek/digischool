@@ -25,7 +25,7 @@ export default class WhiteBoard extends Component {
       room: null,
       userList: [],
       headerAndFooterHeight: 160,
-      videoChatWidth: 240,
+      videoChatWidth: 451, // should be 240
     };
 
     this.whiteboard = React.createRef();
@@ -51,8 +51,8 @@ export default class WhiteBoard extends Component {
     });
 
     socket.on("drawing", (data) => {
-      let w = this.getCanvasWidth()();
-      let h = this.getCanvasHeight()();
+      let w = this.getCanvasWidth();
+      let h = this.getCanvasHeight();
 
       if (!isNaN(data.x0 / w) && !isNaN(data.y0)) {
         this.drawLine(
@@ -152,8 +152,9 @@ export default class WhiteBoard extends Component {
   };
 
   calculateXPosition = (clientX) => {
-    const differX = window.innerHeight - this.getCanvasHeight() - this.state.videoChatWidth;
-    const calculatedX = clientX + differX;
+    const differX = window.innerWidth - this.getCanvasWidth();
+    console.log(`clientX: ${clientX} differ is : ${differX}`);
+    const calculatedX = clientX - differX;
     return calculatedX;
   }
 
@@ -191,8 +192,8 @@ export default class WhiteBoard extends Component {
     const calculatedXPosition = this.calculateXPosition(e.clientX);
     this.setState(() => {
       return {
-        currentX: this.calculateXPosition(e.clientX),
-        currentY: this.calculateYPosition(e.clientY),
+        currentX: calculatedXPosition,
+        currentY: calculatedYPosition,
       };
     }, this.drawLine(this.state.currentX, this.state.currentY, calculatedXPosition, calculatedYPosition, this.state.currentColor, true));
   };
@@ -270,7 +271,7 @@ export default class WhiteBoard extends Component {
     return (
       <div id="whiteboard">
         <canvas
-          width={`${this.state.windowWidth - 151}px`}
+          width={`${this.state.windowWidth - this.state.videoChatWidth}px`}
           height={`${this.state.windowHeight - 135}px`}
           ref={this.whiteboard}
           className="whiteboard"
