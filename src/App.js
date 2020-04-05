@@ -2,9 +2,11 @@ import React from "react";
 import "./App.css";
 import VideoChat from "./components/VideoChat";
 import { BrowserRouter, Route } from "react-router-dom";
-import { School } from "./school/School";
+import SchoolWrapper from "./components/SchoolWrapper";
 
 const App = () => {
+  localStorage.setItem("roomba", false);
+  localStorage.setItem("openwhiteboard", false);
   return (
     <div className="app">
       <header>
@@ -12,9 +14,9 @@ const App = () => {
       </header>
       <main>
         <VideoChat />
-        <School />
+        <SchoolWrapper />
         {/* <BrowserRouter>
-          <Route component={School} to="/" />
+          <Route component={SchoolWrapper} to="/" />
           <Route component={VideoChat} to="/video" />
         </BrowserRouter> */}
       </main>

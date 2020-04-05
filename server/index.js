@@ -4,10 +4,16 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const pino = require("express-pino-logger")();
 const { chatToken, videoToken, voiceToken } = require("./tokens");
-const whiteboard = require("./whiteboard");
 
 const app = express();
-app.use(cors());
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:3001","http://localhost:3002"],
+    credentials: true
+  })
+);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(pino);
@@ -44,6 +50,7 @@ app.get("/video/token", (req, res) => {
   const room = req.query.room;
   const token = videoToken(identity, room, config);
   sendTokenResponse(token, res);
+  
 });
 
 app.post("/video/token", (req, res) => {

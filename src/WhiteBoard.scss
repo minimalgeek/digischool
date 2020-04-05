@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css?family=Homemade+Apple|Indie+Flower|Permanent+Marker|Rock+Salt|Warnes|Lobster");
+
+.button-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+
+	.color-swatch {
+		z-index: 10;
+	}
+}
+
+.fullscreen-mode {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+	right: 0;
+	margin: 0 auto;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	button {
+		flex: 1;
+		height: 40px;
+		color: white;
+		font-size: 18px;
+		font-weight: 800;
+		border: none;
+	}
+	button:nth-child(1) {
+		background: red;
+	}
+	button:nth-child(2) {
+		background: rgb(132, 0, 255);
+	}
+}
+
+.whiteboard {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: url('../public/assets/whiteboard/schoolboard.png');
+}
+
+.room-name {
+	position: fixed;
+	font-size: 32px;
+	top: 10px;
+	left: 0;
+	right: 0;
+	text-align: center;
+	margin: 0 auto;
+	font-family: "Rock Salt", "Homemade Apple", cursive;
+}
+
+.clear {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	border-radius: 50%;
+	overflow: hidden;
+	button {
+		background: rgb(219, 219, 219);
+		width: 65px;
+		height: 65px;
+		border: none;
+		border-radius: 50%;
+		font-size: 16px;
+		cursor: pointer;
+	}
+}
+
+
+
+.user-list {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	position: fixed;
+	top: 100px;
+	right: 20px;
+	font-family: "Rock Salt", "Homemade Apple", cursive;
+
+	span {
+		margin: 5px 0px;
+	}
+}
