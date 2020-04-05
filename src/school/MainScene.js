@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { config } from "./School";
+import {config} from "./School";
 import CharacterSprite from "../components/spite/CharacterSpite";
 
 class MainScene extends Phaser.Scene {
@@ -186,8 +186,8 @@ class MainScene extends Phaser.Scene {
         //moving down
         this.anna.play("down", true);
       }
+
     }
-  }
 }
 
 export default MainScene;
