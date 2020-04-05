@@ -53,7 +53,7 @@ const VideoChat = () => {
     setToken(null);
     localStorage.setItem("roomba", "");
   };
-  let render = "";
+  let render = <div style={{minWidth: "451px"}}></div>;
   if (token) {
     render = (
       <Room roomName={roomName} token={token} handleLogout={handleLogout} />
