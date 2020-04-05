@@ -24,6 +24,7 @@ export default class WhiteBoard extends Component {
       username: null,
       room: null,
       userList: [],
+      headerAndFooterHeight: 160,
     };
 
     this.whiteboard = React.createRef();
@@ -104,7 +105,14 @@ export default class WhiteBoard extends Component {
 
     this.whiteboard.current.addEventListener("touchend", this.onMouseUp, false);
 
-    document.querySelector('#whiteboard').addEventListener('resize', this.onResize);
+    var observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutationRecord) {
+        console.log('style changed!');
+      });
+    });
+
+    var target = document.getElementById('whiteboard');
+    observer.observe(target, { attributes : true, attributeFilter : ['style'] });
   }
 
   drawLine = (x0, y0, x1, y1, color, emit, force) => {
@@ -144,24 +152,28 @@ export default class WhiteBoard extends Component {
     });
   };
 
+  calculateYPosition = (clientY) => {
+    const differY = window.innerHeight - this.getCanvasHeight() - this.state.headerAndFooterHeight;
+    const calculatedY = clientY + differY;
+    return calculatedY;
+  }
+
   onMouseDown = (e) => {
-    const differY = window.innerHeight - this.getCanvasHeight();
     this.setState(() => {
       return {
         currentX: e.clientX,
-        currentY: e.clientY+differY,
+        currentY: this.calculateYPosition(e.clientY),
         drawing: true,
       };
     });
   };
 
   onMouseUp = (e) => {
-    const differY = window.innerHeight - this.getCanvasHeight();
     this.setState(() => {
       return {
         drawing: false,
         currentX: e.clientX,
-        currentY: e.clientY+differY,
+        currentY: this.calculateYPosition(e.clientY),
       };
     });
   };
@@ -170,13 +182,13 @@ export default class WhiteBoard extends Component {
     if (!this.state.drawing) {
       return;
     }
-    const differY = window.innerHeight - this.getCanvasHeight();
+    const calculatedYPosition = this.calculateYPosition(e.clientY);
     this.setState(() => {
       return {
         currentX: e.clientX,
-        currentY: e.clientY+differY,
+        currentY: this.calculateYPosition(e.clientY),
       };
-    }, this.drawLine(this.state.currentX, this.state.currentY, e.clientX, e.clientY+differY, this.state.currentColor, true));
+    }, this.drawLine(this.state.currentX, this.state.currentY, e.clientX, calculatedYPosition, this.state.currentColor, true));
   };
 
   onTouchMove = (e) => {
@@ -198,13 +210,6 @@ export default class WhiteBoard extends Component {
         currentX: e.touches[0].clientX,
         currentY: e.touches[0].clientY,
       };
-    });
-  };
-
-  onResize = () => {
-    this.setState({
-      windowWidth: this.getCanvasWidth(),
-      windowHeight: this.getCanvasHeight(),
     });
   };
 
@@ -259,11 +264,12 @@ export default class WhiteBoard extends Component {
     return (
       <div id="whiteboard">
         <canvas
-          height="768px"
-          width="1024px"
+          width={`${this.state.windowWidth}px`}
+          height={`${this.state.windowHeight - 135}px`}
           ref={this.whiteboard}
           className="whiteboard"
         />
+        <button onClick={this.clearBoard()}>Clear Board</button>
       </div>
     );
   }
