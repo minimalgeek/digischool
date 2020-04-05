@@ -3,21 +3,21 @@ import Lobby from "./Lobby";
 import Room from "./Room";
 
 const VideoChat = () => {
-  const [username, setUsername] = useState(localStorage.getItem("name")||"Peter");
+  const [username, setUsername] = useState(
+    localStorage.getItem("name") || "Peter"
+  );
   const [roomName, setRoomName] = useState("ProgBasics");
   const [token, setToken] = useState(null);
 
   useEffect(() => {
     const inter = setInterval(() => {
       let valll = localStorage.getItem("roomba");
-      if (valll) {
+      if (valll == "true") {
+        console.info("Try connect to video chat room.");
         handleSubmit();
+        clearInterval(inter);
       }
     }, 500);
-
-    return () => {
-      clearInterval(inter);
-    }
   }, []);
 
   const handleUsernameChange = (event) => {
@@ -28,9 +28,9 @@ const VideoChat = () => {
     setRoomName(event.target.value);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     // event.preventDefault()  ??? Nem tudjuk kell-e
-    const data = await fetch("/video/token", {
+    fetch("/video/token", {
       method: "POST",
       body: JSON.stringify({
         identity: username,
@@ -39,16 +39,21 @@ const VideoChat = () => {
       headers: {
         "Content-Type": "application/json",
       },
-    });
-    const json = await data.json();
-    setToken(json.token);
+    })
+      .then((response) => response.json())
+      .then((tokenString) => setToken(tokenString.token))
+      .catch((error) => {
+        setToken(null);
+        console.info("Video chat not available.");
+        console.error(error);
+      });
   };
 
   const handleLogout = (event) => {
     setToken(null);
     localStorage.setItem("roomba", "");
   };
-  let render="";
+  let render = "";
   if (token) {
     render = (
       <Room roomName={roomName} token={token} handleLogout={handleLogout} />
