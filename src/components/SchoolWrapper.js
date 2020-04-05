@@ -36,6 +36,7 @@ export default class SchoolWrapper extends React.Component {
     return isWhiteBoardOpen ? (
       <WhiteBoard
         toggleWhiteBoard={this.toggleWhiteBoard}
+        room={'codeCool'}
         userName={userName}
       />
     ) : (

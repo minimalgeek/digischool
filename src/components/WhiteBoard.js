@@ -66,15 +66,21 @@ export default class WhiteBoard extends Component {
     });
   }
 
+  randomColor = () => {
+    const colors = ['black', 'red', 'blue', 'yellow', 'orange'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
   componentDidMount() {
     const userName = localStorage.getItem('name');
     socket.emit("join", {
-      username: this.props.username,
+      username: userName,
       room: this.props.room,
     });
 
     this.setState({
       whiteboard: this.whiteboard.current,
+      currentColor: this.randomColor(),
       userName,
     });
     this.whiteboard.current.style.height = this.getCanvasHeight();
@@ -270,8 +276,7 @@ export default class WhiteBoard extends Component {
           className="whiteboard"
           style={{background: "url('https://images.squarespace-cdn.com/content/5b1ec58225bf0214c000f55f/1554766470261-8W5MK6RGG1E8KIYVV5GY/schoolboard.png?format=1500w&content-type=image%2Fpng')", backgroundSize: "auto"}}
         />
-        <button onClick={this.clearBoard()}>Clear Board</button>
-        <button onClick={this.props.toggleWhiteBoard} >Exit</button>
+        <button onClick={this.clearBoard}>Clear Board</button>
       </div>
     );
   }
