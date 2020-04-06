@@ -39,8 +39,3 @@ export class School extends React.Component {
     return <div className="phaserContainer" id="phaser-container"></div>;
   }
 }
-
-/*export const School = () => {
-  new Phaser.Game(config);
-  return <div className="phaserContainer" id="phaser-container"></div>;
-};*/
