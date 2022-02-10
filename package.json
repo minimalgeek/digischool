@@ -5,7 +5,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "cors": "^2.8.5",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "phaser": "^3.22.0",
     "react": "^16.9.0",
     "react-color": "^2.14.1",
